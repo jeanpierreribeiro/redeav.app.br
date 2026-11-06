@@ -1,5 +1,17 @@
 # Rede AV — protótipo do novo site
 
+## Acesso por código (Vercel)
+O site publicado fica atrás de uma tela de código, como no protótipo da AV Brasil Proteção.
+- `middleware.js` roda na borda da Vercel **antes** de entregar qualquer arquivo. Sem o cookie `rav_acesso`, nada do site é servido: tudo vai para `/acesso/`.
+- Código certo → cookie HttpOnly de 7 dias → site. `/sair` apaga o cookie.
+- O código **não está em texto** no repositório, só o hash SHA-256. Para trocar sem mexer no código, crie na Vercel a variável `ACCESS_CODE` (Settings → Environment Variables); ela tem prioridade sobre o hash.
+- Tudo o que é publicado fica em `site/` (`vercel.json` define `outputDirectory`). `docs/` e `README.md` não vão ao ar.
+- Fora dos buscadores: `robots.txt`, cabeçalho `X-Robots-Tag: noindex` (`vercel.json`) e `<meta name="robots">` na tela de acesso.
+- Testes: `TEST_CODE='<código>' node test/gate.test.mjs`.
+- **Para lançar de verdade** (domínio público): remover `middleware.js`, o `noindex` do `vercel.json` e o `Disallow` do `robots.txt`.
+
+> Os caminhos abaixo agora ficam dentro de `site/`.
+
 Protótipo estático (HTML + CSS + JS), sem build. Abra `index.html` direto no navegador
 ou rode um servidor local na pasta (ex.: `python -m http.server 8000` ou `npx serve`).
 

@@ -1,0 +1,8 @@
+{
+  "name": "redeav-prototipo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test/gate.test.mjs"
+  }
+}
